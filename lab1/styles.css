@@ -1,0 +1,131 @@
+body {
+     font-family: 'Times New Roman', Times, serif, sans-serif;
+     margin: 0; padding: 0;
+     background-color: #f4f4f4;
+    }
+
+header{
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer{
+    background-color: #333;
+    text-align: right;
+    color: #fafafaf5;
+}
+
+main{
+    padding: 20px;
+}
+
+nav ul {
+    padding: 0;
+    display: flex;       
+    justify-content: center;
+    gap: 30px;  
+    list-style: none;        
+}
+
+nav a {
+    text-decoration: none; 
+    color: white; 
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: hsl(51, 4%, 31%); 
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px; 
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ddd;      
+    padding: 20px;            
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 20%; 
+}
+
+button {
+    background-color: #28a745; 
+    width: 160px;
+    color: white;
+    border: none;
+    padding: 100;
+}
+
+button:hover {
+    background-color: #218838; 
+}
+
+.welcome-box {
+    background-color: #34495e; 
+    color: white;            
+    padding: 30px;            
+    text-align: center;        
+    border-radius: 10px;       
+    margin-bottom: 30px;      
+}
+
+.welcome-box h2 {
+    color: #ffd700;  
+    margin-top: 0;          
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 10px; 
+    }
+
+    .welcome-box {
+        padding: 20px; 
+    }
+
+    .welcome-box h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    nav ul {
+        flex-direction: column; 
+        gap: 15px;              
+    }
+
+    nav ul li {
+        text-align: center;    
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr; 
+        padding: 10px 0;
+    }
+
+    .card {
+        padding: 15px; 
+    }
+
+    button {
+        width: 100%; 
+    }
+}
