@@ -11,10 +11,23 @@ header{
     text-align: center;
 }
 
-footer{
+footer {
     background-color: #333;
-    text-align: right;
-    color: #fafafaf5;
+    color: #fafafa;
+    text-align: center;      
+    padding: 40px 20px;      
+    margin-top: 50px;        
+}
+
+
+footer h3 {
+    margin-bottom: 15px;     
+    color: #fff;          
+}
+
+footer p {
+    margin: 5px 0;           
+    font-size: 0.9em;        
 }
 
 main{
@@ -116,6 +129,7 @@ img {
         text-align: center;    
     }
 
+    
     .grid-container {
         grid-template-columns: 1fr; 
         padding: 10px 0;
@@ -127,5 +141,9 @@ img {
 
     button {
         width: 100%; 
+    }
+
+    main {
+        background-color: #28a745;
     }
 }
