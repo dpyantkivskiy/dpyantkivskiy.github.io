@@ -1,6 +1,6 @@
 {
   "name": "startup-simulator",
-  "homepage": "https://dpyantkivskiy.github.io/lab3",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
