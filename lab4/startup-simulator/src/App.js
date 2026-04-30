@@ -28,7 +28,7 @@ function App() {
   };
 
   return (
-    <Router basename="/lab3">
+    <Router basename="/lab4">
       <div id="app">
         <header>
           <h1>Startup Simulator</h1>
