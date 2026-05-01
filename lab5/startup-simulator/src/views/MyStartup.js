@@ -16,7 +16,7 @@ function MyStartup() {
 
     // === ДОДАНО: GET-запит для отримання даних при завантаженні компонента ===
     useEffect(() => {
-        fetch('http://localhost:5000/api/company')
+        fetch('/api/company')
             .then(res => res.json())
             .then(data => {
                 // Якщо компанія вже є в базі і її назва не дефолтна
