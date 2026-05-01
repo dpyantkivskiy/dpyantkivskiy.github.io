@@ -33,30 +33,24 @@ function App() {
         <header>
           <h1>Startup Simulator</h1>
           <nav>
-            <ul style={{ display: 'flex', gap: '35px', alignItems: 'center', justifyContent: 'center', listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '800px' }}>
+            <ul style={{ display: 'flex', gap: '30px', alignItems: 'center', justifyContent: 'center', listStyle: 'none', padding: 0, margin: 0 }}>
               <li><Link to="/">Мій стартап</Link></li>
               <li><Link to="/market">Ринок</Link></li>
               <li><Link to="/investors">Інвестори</Link></li>
 
               {currentUser && (
-                <li style={{ display: 'flex', alignItems: 'center' }}>
-                  <button
+                <li>
+                  <span
                     onClick={handleLogout}
                     style={{
                       cursor: 'pointer',
-                      background: 'none',
-                      border: 'none',
                       color: '#ff4d4d',
-                      fontSize: '17px',
                       fontWeight: 'bold',
-                      fontFamily: 'inherit',
-                      padding: '0',
-                      margin: '0',
-                      width: 'auto'
+                      fontSize: '16px'
                     }}
                   >
                     Вийти
-                  </button>
+                  </span>
                 </li>
               )}
             </ul>
