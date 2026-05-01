@@ -73,7 +73,6 @@ function InvestorsView() {
             required
             style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '15px' }}
           />
-          {/* Змінена кнопка: по центру, зелена, напис "Додати" */}
           <button type="submit" style={{ padding: '12px', backgroundColor: '#28a745', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '6px', fontSize: '16px', fontWeight: 'bold', transition: '0.2s', marginTop: '10px', width: '200px', alignSelf: 'center' }}>
             Додати
           </button>
