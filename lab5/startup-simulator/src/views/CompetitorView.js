@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CompetitorCard from '../components/CompetitorCard';
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db } from '../firebase'; 
+import { db } from '../firebase';
 
 function CompetitorView() {
   const [filter, setFilter] = useState('All');
@@ -9,7 +9,7 @@ function CompetitorView() {
   const [loading, setLoading] = useState(true);
 
   const [newName, setNewName] = useState('');
-  const [newSphere, setNewSphere] = useState('IT'); 
+  const [newSphere, setNewSphere] = useState('IT');
   const [newCapital, setNewCapital] = useState('Середній');
 
   const fetchCompetitors = async () => {
@@ -41,12 +41,12 @@ function CompetitorView() {
         sphere: newSphere,
         capital: newCapital
       });
-      
+
       setNewName('');
       setNewSphere('IT');
       setNewCapital('Середній');
-      
-      fetchCompetitors(); 
+
+      fetchCompetitors();
       alert("Компанію успішно додано на ринок!");
     } catch (error) {
       console.error("Помилка при додаванні компанії:", error);
@@ -54,36 +54,36 @@ function CompetitorView() {
     }
   };
 
-  const filteredCompetitors = filter === 'All' 
-    ? competitors 
+  const filteredCompetitors = filter === 'All'
+    ? competitors
     : competitors.filter(c => c.sphere === filter);
 
   return (
     <section id="market">
       <h2>Ринок</h2>
 
-      <div style={{ marginBottom: '30px', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', maxWidth: '400px', margin: '0 auto 30px' }}>
-        <h3>Додати компанію на ринок</h3>
-        <form onSubmit={handleAddCompetitor} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <input 
-            type="text" 
-            placeholder="Назва компанії (напр. Alpha Corp)" 
+      <div style={{ padding: '25px', border: '1px solid #e0e0e0', borderRadius: '8px', maxWidth: '400px', margin: '0 auto 30px', backgroundColor: '#fdfdfd', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+        <h3 style={{ marginTop: '0', textAlign: 'center', color: '#333' }}>Додати компанію на ринок</h3>
+        <form onSubmit={handleAddCompetitor} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <input
+            type="text"
+            placeholder="Назва компанії (напр. Alpha Corp)"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             required
-            style={{ padding: '8px' }}
+            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '14px' }}
           />
-          <select value={newSphere} onChange={(e) => setNewSphere(e.target.value)} style={{ padding: '8px' }}>
+          <select value={newSphere} onChange={(e) => setNewSphere(e.target.value)} style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '14px' }}>
             <option value="IT">IT</option>
             <option value="Бізнес">Бізнес</option>
             <option value="Медицина">Медицина</option>
           </select>
-          <select value={newCapital} onChange={(e) => setNewCapital(e.target.value)} style={{ padding: '8px' }}>
+          <select value={newCapital} onChange={(e) => setNewCapital(e.target.value)} style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '14px' }}>
             <option value="Високий">Високий</option>
             <option value="Середній">Середній</option>
             <option value="Низький">Низький</option>
           </select>
-          <button type="submit" style={{ padding: '10px', backgroundColor: '#007BFF', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px' }}>
+          <button type="submit" style={{ padding: '12px', backgroundColor: '#007BFF', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px', fontSize: '15px', fontWeight: 'bold', transition: '0.2s', marginTop: '5px' }}>
             Додати в базу
           </button>
         </form>
@@ -104,11 +104,11 @@ function CompetitorView() {
       ) : filteredCompetitors.length > 0 ? (
         <div className="grid-container">
           {filteredCompetitors.map(c => (
-            <CompetitorCard 
-              key={c.id} 
-              name={c.name} 
-              sphere={c.sphere} 
-              capital={c.capital} 
+            <CompetitorCard
+              key={c.id}
+              name={c.name}
+              sphere={c.sphere}
+              capital={c.capital}
             />
           ))}
         </div>

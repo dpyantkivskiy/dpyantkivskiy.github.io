@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase'; 
+import { auth } from './firebase';
 
 import Auth from './components/Auth';
 import MyStartup from './views/MyStartup';
@@ -33,26 +33,25 @@ function App() {
         <header>
           <h1>Startup Simulator</h1>
           <nav>
-            <ul style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center', listStyle: 'none', padding: 0 }}>
+            <ul style={{ display: 'flex', gap: '30px', alignItems: 'center', justifyContent: 'center', listStyle: 'none', padding: 0, margin: 0 }}>
               <li><Link to="/">Мій стартап</Link></li>
               <li><Link to="/market">Ринок</Link></li>
               <li><Link to="/investors">Інвестори</Link></li>
-              
+
               {currentUser && (
-                <li>
-                  <button 
-                    onClick={handleLogout} 
-                    style={{ 
-                      cursor: 'pointer', 
-                      background: 'none', 
-                      border: 'none', 
-                      color: '#ff4d4d', 
-                      fontSize: 'inherit', 
+                <li style={{ display: 'flex', alignItems: 'center' }}>
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      cursor: 'pointer',
+                      background: 'none',
+                      border: 'none',
+                      color: '#ff4d4d',
+                      fontSize: '16px',
                       fontWeight: 'bold',
                       fontFamily: 'inherit',
                       padding: '0',
-                      margin: '0',  
-                      textDecoration: 'none' 
+                      margin: '0'
                     }}
                   >
                     Вийти
