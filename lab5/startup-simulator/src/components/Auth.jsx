@@ -18,11 +18,8 @@ const Auth = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
-        console.log("User ID:", user.uid); 
-        console.log("Email:", user.email); 
       } else {
         setCurrentUser(null);
-        console.log("No user is currently signed in."); 
       }
     });
 
@@ -58,21 +55,12 @@ const Auth = () => {
         <h2>Ласкаво просимо до Симулятора Стартапу!</h2>
         <p>Ви авторизовані як: <strong>{currentUser.email}</strong></p>
         
-        <div style={{ 
-          border: '2px dashed #4CAF50', 
-          padding: '20px', 
-          margin: '20px auto',
-          maxWidth: '600px',
-          backgroundColor: '#f9fff9'
-        }}>
+        <div style={{ border: '2px dashed #4CAF50', padding: '20px', margin: '20px auto', maxWidth: '600px', backgroundColor: '#f9fff9' }}>
           <h3>Сторінка "Мій стартап"</h3>
           <p>Тут буде інтерфейс управління твоїм бізнесом. Цей блок надійно захищений!</p>
         </div>
 
-        <button 
-          onClick={handleLogout} 
-          style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px' }}
-        >
+        <button onClick={handleLogout} style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px' }}>
           Вийти з системи
         </button>
       </div>
@@ -80,17 +68,19 @@ const Auth = () => {
   }
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px', maxWidth: '400px', margin: '20px auto' }}>
-      <h2>{isLoginMode ? 'Вхід в систему' : 'Реєстрація'}</h2>
+    <div style={{ padding: '30px', border: '1px solid #e0e0e0', borderRadius: '12px', maxWidth: '400px', margin: '40px auto', backgroundColor: '#fdfdfd', boxShadow: '0 8px 16px rgba(0,0,0,0.08)' }}>
+      <h2 style={{ marginTop: '0', textAlign: 'center', color: '#333', marginBottom: '25px' }}>
+        {isLoginMode ? 'Вхід в систему' : 'Реєстрація'}
+      </h2>
       
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <input 
           type="email" 
           placeholder="Ваш Email" 
           value={email} 
           onChange={(e) => setEmail(e.target.value)} 
           required 
-          style={{ padding: '8px' }}
+          style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '15px' }}
         />
         <input 
           type="password" 
@@ -98,17 +88,17 @@ const Auth = () => {
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           required 
-          style={{ padding: '8px' }}
+          style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '15px' }}
         />
-        <button type="submit" style={{ padding: '10px', backgroundColor: '#007BFF', color: 'white', border: 'none', cursor: 'pointer' }}>
+        <button type="submit" style={{ padding: '14px', backgroundColor: '#007BFF', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '6px', fontSize: '16px', fontWeight: 'bold', transition: '0.2s', marginTop: '10px', width: '100%' }}>
           {isLoginMode ? 'Увійти' : 'Зареєструватись'}
         </button>
       </form>
 
-      <p style={{ marginTop: '15px', fontSize: '14px', textAlign: 'center' }}>
+      <p style={{ marginTop: '25px', fontSize: '15px', textAlign: 'center', color: '#555' }}>
         {isLoginMode ? 'Ще не маєте акаунту? ' : 'Вже зареєстровані? '}
         <span 
-          style={{ color: '#007BFF', cursor: 'pointer', textDecoration: 'underline' }} 
+          style={{ color: '#007BFF', cursor: 'pointer', textDecoration: 'underline', fontWeight: 'bold' }} 
           onClick={() => setIsLoginMode(!isLoginMode)}
         >
           {isLoginMode ? 'Створити акаунт' : 'Увійти'}

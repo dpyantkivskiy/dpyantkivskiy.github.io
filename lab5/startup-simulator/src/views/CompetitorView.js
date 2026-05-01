@@ -62,8 +62,8 @@ function CompetitorView() {
     <section id="market">
       <h2>Ринок</h2>
 
-      <div style={{ padding: '25px', border: '1px solid #e0e0e0', borderRadius: '8px', maxWidth: '400px', margin: '0 auto 30px', backgroundColor: '#fdfdfd', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
-        <h3 style={{ marginTop: '0', textAlign: 'center', color: '#333' }}>Додати компанію на ринок</h3>
+      <div style={{ padding: '30px', border: '1px solid #e0e0e0', borderRadius: '12px', maxWidth: '400px', margin: '0 auto 40px', backgroundColor: '#fdfdfd', boxShadow: '0 8px 16px rgba(0,0,0,0.08)' }}>
+        <h3 style={{ marginTop: '0', textAlign: 'center', color: '#333', marginBottom: '20px' }}>Додати компанію на ринок</h3>
         <form onSubmit={handleAddCompetitor} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <input
             type="text"
@@ -71,20 +71,21 @@ function CompetitorView() {
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             required
-            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '14px' }}
+            style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '15px' }}
           />
-          <select value={newSphere} onChange={(e) => setNewSphere(e.target.value)} style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '14px' }}>
+          <select value={newSphere} onChange={(e) => setNewSphere(e.target.value)} style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '15px' }}>
             <option value="IT">IT</option>
             <option value="Бізнес">Бізнес</option>
             <option value="Медицина">Медицина</option>
           </select>
-          <select value={newCapital} onChange={(e) => setNewCapital(e.target.value)} style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '14px' }}>
+          <select value={newCapital} onChange={(e) => setNewCapital(e.target.value)} style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ccc', boxSizing: 'border-box', width: '100%', fontSize: '15px' }}>
             <option value="Високий">Високий</option>
             <option value="Середній">Середній</option>
             <option value="Низький">Низький</option>
           </select>
-          <button type="submit" style={{ padding: '12px', backgroundColor: '#007BFF', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px', fontSize: '15px', fontWeight: 'bold', transition: '0.2s', marginTop: '5px' }}>
-            Додати в базу
+          {/* Змінена кнопка: по центру, зелена, напис "Додати" */}
+          <button type="submit" style={{ padding: '12px', backgroundColor: '#28a745', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '6px', fontSize: '16px', fontWeight: 'bold', transition: '0.2s', marginTop: '10px', width: '200px', alignSelf: 'center' }}>
+            Додати
           </button>
         </form>
       </div>
