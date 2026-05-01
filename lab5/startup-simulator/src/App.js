@@ -33,7 +33,6 @@ function App() {
         <header>
           <h1>Startup Simulator</h1>
           <nav>
-            {/* Меню тепер жорстко по центру, всі елементи на одному рівні */}
             <ul style={{ display: 'flex', gap: '35px', alignItems: 'center', justifyContent: 'center', listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '800px' }}>
               <li><Link to="/">Мій стартап</Link></li>
               <li><Link to="/market">Ринок</Link></li>
@@ -52,7 +51,8 @@ function App() {
                       fontWeight: 'bold',
                       fontFamily: 'inherit',
                       padding: '0',
-                      margin: '0'
+                      margin: '0',
+                      width: 'auto'
                     }}
                   >
                     Вийти
