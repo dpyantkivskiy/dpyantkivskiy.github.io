@@ -16,8 +16,14 @@ app.use(express.json());
 app.use(express.static('build'));
 
 app.get('/api/company', async (req, res) => {
+  const userEmail = req.query.email;
+  
+  if (!userEmail) {
+    return res.status(400).json({ error: 'Не вказано email користувача' });
+  }
+
   try {
-    const doc = await db.collection('startups').doc('my-company').get();
+    const doc = await db.collection('startups').doc(userEmail).get();
     if (!doc.exists) {
       return res.json({ name: 'Новий Стартап', description: 'Опис відсутній' });
     }
@@ -28,14 +34,18 @@ app.get('/api/company', async (req, res) => {
 });
 
 app.post('/api/company', async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, email } = req.body;
 
+  if (!email) {
+    return res.status(400).json({ error: 'Не вказано email користувача!' });
+  }
+  
   if (!name || name.length < 5) {
     return res.status(400).json({ error: 'Назва компанії має містити мінімум 5 символів!' });
   }
 
   try {
-    await db.collection('startups').doc('my-company').set({
+    await db.collection('startups').doc(email).set({
       name: name,
       description: description,
       updatedAt: admin.firestore.FieldValue.serverTimestamp()

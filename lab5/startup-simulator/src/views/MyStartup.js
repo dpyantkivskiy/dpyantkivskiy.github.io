@@ -1,5 +1,6 @@
-import ReportRow from '../components/ReportRow';
 import React, { useState, useEffect } from 'react';
+import ReportRow from '../components/ReportRow';
+import { auth } from '../firebase'; 
 
 function MyStartup() {
     const [companyName, setCompanyName] = useState('');
@@ -14,32 +15,36 @@ function MyStartup() {
     const [initial, setInitial] = useState({ employees: 0, profit: 0, expenses: 0, offices: 1 });
     const [current, setCurrent] = useState({ employees: 0, profit: 0, expenses: 0, offices: 1 });
 
-    // === ДОДАНО: GET-запит для отримання даних при завантаженні компонента ===
     useEffect(() => {
-        fetch('/api/company')
+        const user = auth.currentUser;
+        if (!user) return; 
+        fetch(`/api/company?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
-                // Якщо компанія вже є в базі і її назва не дефолтна
                 if (data.name && data.name !== 'Новий Стартап') {
                     setCompanyName(data.name);
                     if (data.description) setSphere(data.description);
-                    setIsCreated(true); // Одразу показуємо панель керування
+                    setIsCreated(true); 
                 }
             })
             .catch(err => console.error("Помилка завантаження даних з сервера:", err));
     }, []);
 
-    // === ОНОВЛЕНО: POST-запит для збереження компанії на сервері ===
     const createCompany = async (e) => {
         e.preventDefault();
         
+        const user = auth.currentUser;
+        if (!user) {
+             setNameError("Ви не авторизовані!");
+             return;
+        }
+
         if (!companyName.trim()) {
             setNameError("Введіть назву!");
             return;
         }
 
         try {
-            // Відправляємо дані на наш Node.js сервер
             const response = await fetch('/api/company', {
                 method: 'POST',
                 headers: {
@@ -47,19 +52,18 @@ function MyStartup() {
                 },
                 body: JSON.stringify({ 
                     name: companyName, 
-                    description: sphere // Передаємо сферу як опис
+                    description: sphere,
+                    email: user.email 
                 })
             });
 
             const result = await response.json();
 
-            // Якщо сервер повернув помилку (наприклад, менше 5 символів)
             if (!response.ok) {
                 setNameError(result.error || "Помилка збереження");
-                return; // Зупиняємо виконання, компанія не створена
+                return;
             }
 
-            // Якщо все успішно
             setIsCreated(true);
             setNameError("");
             alert(`Компанію '${companyName}' збережено на сервері!`);
@@ -70,7 +74,6 @@ function MyStartup() {
         }
     };
 
-    // ... інший код (simulateStep та reportRows залишаються без змін) ...
     const simulateStep = (e) => {
         e.preventDefault();
         setActionError("");
