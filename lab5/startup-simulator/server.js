@@ -34,7 +34,7 @@ app.get('/api/company', async (req, res) => {
 });
 
 app.post('/api/company', async (req, res) => {
-  const { name, description, email } = req.body;
+  const { name, description, email, employees, profit, expenses, offices } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: 'Не вказано email користувача!' });
@@ -44,12 +44,19 @@ app.post('/api/company', async (req, res) => {
     return res.status(400).json({ error: 'Назва компанії має містити мінімум 5 символів!' });
   }
 
+  const dataToSave = {
+    name: name,
+    description: description,
+    updatedAt: admin.firestore.FieldValue.serverTimestamp()
+  };
+
+  if (employees !== undefined) dataToSave.employees = employees;
+  if (profit !== undefined) dataToSave.profit = profit;
+  if (expenses !== undefined) dataToSave.expenses = expenses;
+  if (offices !== undefined) dataToSave.offices = offices;
+
   try {
-    await db.collection('startups').doc(email).set({
-      name: name,
-      description: description,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
-    }, { merge: true }); 
+    await db.collection('startups').doc(email).set(dataToSave, { merge: true }); 
     
     res.json({ message: 'Інформацію про компанію успішно оновлено!' });
   } catch (error) {

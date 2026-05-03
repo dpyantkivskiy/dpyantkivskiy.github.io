@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReportRow from '../components/ReportRow';
-import { auth } from '../firebase'; 
+import { auth } from '../firebase';
 
 function MyStartup() {
     const [companyName, setCompanyName] = useState('');
@@ -18,16 +18,27 @@ function MyStartup() {
     useEffect(() => {
         const user = auth.currentUser;
         if (!user) return; 
+
         fetch(`/api/company?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
                 if (data.name && data.name !== 'Новий Стартап') {
                     setCompanyName(data.name);
                     if (data.description) setSphere(data.description);
+                    
+                    const loadedStats = {
+                        employees: data.employees || 0,
+                        profit: data.profit || 0,
+                        expenses: data.expenses || 0,
+                        offices: data.offices || 1
+                    };
+                    setCurrent(loadedStats);
+                    setInitial(loadedStats); 
+
                     setIsCreated(true); 
                 }
             })
-            .catch(err => console.error("Помилка завантаження даних з сервера:", err));
+            .catch(err => console.error("Помилка завантаження даних:", err));
     }, []);
 
     const createCompany = async (e) => {
@@ -47,13 +58,12 @@ function MyStartup() {
         try {
             const response = await fetch('/api/company', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     name: companyName, 
                     description: sphere,
-                    email: user.email 
+                    email: user.email,
+                    employees: 0, profit: 0, expenses: 0, offices: 1
                 })
             });
 
@@ -69,12 +79,12 @@ function MyStartup() {
             alert(`Компанію '${companyName}' збережено на сервері!`);
             
         } catch (error) {
-            console.error("Помилка з'єднання:", error);
-            setNameError("Не вдалося з'єднатися з сервером. Перевірте, чи запущений Node.js");
+            console.error("Помилка:", error);
+            setNameError("Не вдалося з'єднатися з сервером.");
         }
     };
 
-    const simulateStep = (e) => {
+    const simulateStep = async (e) => {
         e.preventDefault();
         setActionError("");
         const amt = parseInt(actionAmount, 10);
@@ -101,7 +111,29 @@ function MyStartup() {
             newCurrent.offices += amt;
             newCurrent.expenses += amt * 2000;
         }
+        
         setCurrent(newCurrent);
+
+        const user = auth.currentUser;
+        if (user) {
+            try {
+                await fetch('/api/company', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        name: companyName, 
+                        description: sphere,
+                        email: user.email,
+                        employees: newCurrent.employees,
+                        profit: newCurrent.profit,
+                        expenses: newCurrent.expenses,
+                        offices: newCurrent.offices
+                    })
+                });
+            } catch (error) {
+                console.error("Помилка збереження змін:", error);
+            }
+        }
     };
 
     const reportRows = [
@@ -172,8 +204,8 @@ function MyStartup() {
                             <thead>
                                 <tr style={{ backgroundColor: '#34495e', color: 'white' }}>
                                     <th style={{ padding: '10px', border: '1px solid #ddd' }}>Параметр</th>
-                                    <th style={{ padding: '10px', border: '1px solid #ddd' }}>Початкові</th>
-                                    <th style={{ padding: '10px', border: '1px solid #ddd' }}>Змодельовані</th>
+                                    <th style={{ padding: '10px', border: '1px solid #ddd' }}>Початкові (Сьогодні)</th>
+                                    <th style={{ padding: '10px', border: '1px solid #ddd' }}>Поточні</th>
                                     <th style={{ padding: '10px', border: '1px solid #ddd' }}>Різниця</th>
                                 </tr>
                             </thead>
